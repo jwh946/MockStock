@@ -1,4 +1,4 @@
-<img width="1233" height="864" alt="image" src="https://github.com/user-attachments/assets/33005ff3-25bc-4eed-b72c-096cf20bad9a" /><h1 align="center"><img width="50" height="50" alt="image" src="https://github.com/user-attachments/assets/ae577f70-7ab2-45a4-8432-a4e1bc473a2f" /> MockStock </h1>
+<h1 align="center"><img width="50" height="50" alt="image" src="https://github.com/user-attachments/assets/ae577f70-7ab2-45a4-8432-a4e1bc473a2f" /> MockStock </h1>
 <p align="center"> 모의 주식 투자 사이트 </p>
 
 ---
