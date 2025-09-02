@@ -29,6 +29,7 @@
 - [스크린샷](#-스크린샷)
 - [팀원](#-팀원)
 
+
 ---
 
 ## 📝 프로젝트 소개
@@ -47,7 +48,7 @@ MockStock은 주식 투자 경험을 안전하게 쌓을 수 있도록 돕는 �
 
 ---
 
-## 🛠️ 프로젝트 아키텍쳐
+## 🛠 프로젝트 아키텍쳐
 
 ### 시스템 아키텍쳐
 <img width="1340" height="693" alt="image" src="https://github.com/user-attachments/assets/3ddfbc71-7502-4de4-8c75-bf2b5572af31" />
