@@ -1,4 +1,4 @@
-<h1 align="center"><img width="50" height="50" alt="image" src="https://github.com/user-attachments/assets/ae577f70-7ab2-45a4-8432-a4e1bc473a2f" /> MockStock </h1>
+<img width="1233" height="864" alt="image" src="https://github.com/user-attachments/assets/33005ff3-25bc-4eed-b72c-096cf20bad9a" /><h1 align="center"><img width="50" height="50" alt="image" src="https://github.com/user-attachments/assets/ae577f70-7ab2-45a4-8432-a4e1bc473a2f" /> MockStock </h1>
 <p align="center"> 모의 주식 투자 사이트 </p>
 
 ---
@@ -44,6 +44,11 @@ MockStock은 주식 투자 경험을 안전하게 쌓을 수 있도록 돕는 �
 - 현실적인 시뮬레이션: 실시간 또는 지연된 실제 주식 데이터 활용
 - 지속적인 학습 : 투자 일지, 랭킹, 포트폴리오 분석을 통한 성장 유도
 - 소셜 투자 경험: 친구 초대 및 랭킹 시스템으로 재미있는 투자 학습
+
+### 타겟 사용자
+- 주식 투자에 관심은 있지만 리스크 때문에 망설이는 초보 투자자
+- 새로운 투자 전략을 검증하고 싶은 기존 투자자
+- 금융 교육이 필요한 학생 및 일반인
 
 ### 기대 효과
 - 주식 투자에 대한 진입 장벽 낮추기
@@ -99,6 +104,53 @@ MockStock은 주식 투자 경험을 안전하게 쌓을 수 있도록 돕는 �
 
 ---
 ## 📸 스크린샷
+
+### 대시보드
+<img width="1306" height="909" alt="image" src="https://github.com/user-attachments/assets/d4d1154e-6d00-4f83-9071-9b5f5c3db894" />
+
+### 주식거래
+<img width="1299" height="902" alt="image" src="https://github.com/user-attachments/assets/ba44d6fa-df42-4180-bce8-215d47a778e4" />
+
+### 관심종목
+<img width="1302" height="928" alt="image" src="https://github.com/user-attachments/assets/864b8c70-fed8-4e1f-9796-0334ca2a72fa" />
+
+### 분봉차트
+<img width="1232" height="946" alt="image" src="https://github.com/user-attachments/assets/34985af2-66d7-4105-b0a3-7915cff56479" />
+
+### 일봉차트
+<img width="1259" height="950" alt="image" src="https://github.com/user-attachments/assets/4c170450-7572-4cfe-8c69-99302a6430fb" />
+
+### 주봉차트
+<img width="1244" height="942" alt="image" src="https://github.com/user-attachments/assets/e72e3c8f-26a4-4457-ac8c-e8cceaa873e3" />
+
+#### 거래화면
+<img width="1252" height="909" alt="image" src="https://github.com/user-attachments/assets/b4f2ad1d-306f-4fcd-bdd6-2a14534cbbf0" />
+<img width="1248" height="839" alt="image" src="https://github.com/user-attachments/assets/922804df-2136-43fe-8c00-b72a283f299e" />
+<img width="1233" height="864" alt="image" src="https://github.com/user-attachments/assets/5dee06c2-a492-4824-abe5-5855fdca01ef" />
+
+### 랭킹
+<img width="1305" height="895" alt="image" src="https://github.com/user-attachments/assets/0793c397-3d2b-4ee1-976d-583b0a59617f" />
+
+### 포트폴리오
+<img width="1296" height="865" alt="image" src="https://github.com/user-attachments/assets/6968f3ed-1428-4d12-898f-e18bbc6fd9d4" />
+
+### 거래내역
+<img width="1291" height="919" alt="image" src="https://github.com/user-attachments/assets/9c212721-c8dd-4702-825e-db34538a3373" />
+
+### 알림
+<img width="1284" height="892" alt="image" src="https://github.com/user-attachments/assets/2daa797e-a553-4ff1-a7f1-95d677857da7" />
+
+### 설정
+<img width="1263" height="861" alt="image" src="https://github.com/user-attachments/assets/03dfb076-e7f4-4b99-8397-f17d1569b2e1" />
+<img width="1026" height="917" alt="image" src="https://github.com/user-attachments/assets/7fd83af4-fa41-4d06-96a5-d18616d517d1" />
+
+### 파산 신청
+<img width="1005" height="499" alt="image" src="https://github.com/user-attachments/assets/f491a2b9-090d-4803-aa2e-3908fb7de2de" />
+
+### 가상 머니 충전
+<img width="1299" height="890" alt="image" src="https://github.com/user-attachments/assets/8b3e4512-5e0f-4616-9b4a-b6c86c7b3cca" />
+<img width="1592" height="920" alt="image" src="https://github.com/user-attachments/assets/969fb761-f2e7-46ea-af1b-b95917c7acdc" />
+<img width="1308" height="891" alt="image" src="https://github.com/user-attachments/assets/b2d4ab82-aef2-44b9-9671-712a68781960" />
 
 ---
 
