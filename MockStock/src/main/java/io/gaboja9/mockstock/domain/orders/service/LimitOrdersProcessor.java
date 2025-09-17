@@ -21,52 +21,61 @@ public class LimitOrdersProcessor {
 
     private final OrdersRepository ordersRepository;
     private final OrdersService ordersService;
-    private final ExecutorService virtualThreadExecutor;
     private final LimitOrdersExecutor limitOrdersExecutor;
+    private final Executor virtualThreadExecutor = Executors.newVirtualThreadPerTaskExecutor();
 
-    @Scheduled(fixedDelay = 1000)
+    @Scheduled(fixedDelay = 1000) // 1초마다 실행
     public void processLimitOrders() {
-        if (!ordersService.openKoreanMarket()) return;
-
-        List<Orders> pendingOrders =
-                ordersRepository.findByStatusAndOrderTypeOrderByCreatedAtAsc(
-                        OrderStatus.PENDING, OrderType.LIMIT);
-
-        if (pendingOrders.isEmpty()) {
+        if (!ordersService.openKoreanMarket()) {
             return;
         }
+        try {
+            List<Orders> pendingOrders = ordersRepository
+                    .findByStatusAndOrderTypeOrderByCreatedAtAsc(OrderStatus.PENDING, OrderType.LIMIT);
+            if (pendingOrders.isEmpty()) {
+                return;
+            }
+            processBatchOrders(pendingOrders);
+        } catch (Exception e) {
+            log.error("지정가 주문 처리 스케줄러 오류", e);
+        }
+    }
 
-        List<CompletableFuture<Void>> futures =
-                pendingOrders.stream()
-                        .map(
-                                order ->
-                                        CompletableFuture.runAsync(
-                                                () ->
-                                                        limitOrdersExecutor.processIndividualOrder(
-                                                                order),
-                                                virtualThreadExecutor))
-                        .toList();
+    /**
+     * 배치 주문 처리 - Virtual Thread의 특성을 최대한 활용
+     */
+    private void processBatchOrders(List<Orders> pendingOrders) {
+        log.debug("처리할 지정가 주문 수: {}", pendingOrders.size());
+
+        List<CompletableFuture<Void>> futures = pendingOrders.stream()
+                .map(this::processOrderAsync)
+                .toList();
+
+        CompletableFuture<Void> allOf = CompletableFuture.allOf(
+                futures.toArray(new CompletableFuture[0]));
 
         try {
-            // 모든 작업 완료 대기 (타임아웃 30초)
-            CompletableFuture<Void> allOf =
-                    CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
-
             allOf.get(30, TimeUnit.SECONDS);
-
-            log.debug("처리된 주문 수: {}", futures.size());
+            log.debug("주문 처리 배치 완료. 처리된 주문: {}", pendingOrders.size());
 
         } catch (TimeoutException e) {
-            log.warn("주문 처리 타임아웃 발생. 처리 중인 주문이 있을 수 있습니다.", e);
-            // 타임아웃이 발생해도 실행 중인 작업들은 계속 진행됨
+            log.warn("주문 처리 타임아웃 발생. 처리 중인 주문: {}", pendingOrders.size());
+
         } catch (ExecutionException e) {
-            log.error("주문 처리 중 오류 발생", e.getCause());
+            log.error("주문 처리 중 치명적 오류 발생", e.getCause());
+
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("주문 처리 중 인터럽트 발생", e);
-
-            // 실행 중인 모든 작업 취소 시도
             futures.forEach(future -> future.cancel(true));
         }
+    }
+
+    /**
+     * 개별 주문을 비동기로 처리
+     */
+    private CompletableFuture<Void> processOrderAsync(Orders order) {
+        return CompletableFuture.runAsync(() ->
+                limitOrdersExecutor.processIndividualOrder(order), virtualThreadExecutor);
     }
 }
