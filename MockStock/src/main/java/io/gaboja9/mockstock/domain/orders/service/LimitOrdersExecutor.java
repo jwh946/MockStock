@@ -23,8 +23,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.ReentrantLock;
 
 @Component
 @RequiredArgsConstructor
@@ -37,15 +35,6 @@ public class LimitOrdersExecutor {
     private final PortfoliosService portfoliosService;
     private final NotificationsService notificationsService;
     private final PortfoliosRepository portfoliosRepository;
-
-    private final ConcurrentHashMap<Long, ReentrantLock> memberLocks = new ConcurrentHashMap<>();
-
-    /**
-     * 사용자별 락 획득
-     */
-    private ReentrantLock getMemberLock(Long memberId) {
-        return memberLocks.computeIfAbsent(memberId, k -> new ReentrantLock());
-    }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void processIndividualOrder(Orders order) {
@@ -81,7 +70,7 @@ public class LimitOrdersExecutor {
             return;
         }
 
-        executeOrderWithLock(currentOrder, currentPrice);
+        executeOrder(currentOrder, currentPrice);
     }
 
     private boolean shouldExecuteOrder(Orders order, int currentPrice) {
@@ -93,41 +82,6 @@ public class LimitOrdersExecutor {
         return false;
     }
 
-
-    /**
-     * 사용자별 락을 사용한 주문 처리 - 세마포어보다 효율적
-     */
-    private void executeOrderWithLock(Orders order, int executionPrice) {
-        Long memberId = order.getMembers().getId();
-        ReentrantLock memberLock = getMemberLock(memberId);
-
-        if (!memberLock.tryLock()) {
-            log.debug("사용자 락 획득 실패로 주문 처리 스킵. orderId={}, memberId={}",
-                    order.getId(), memberId);
-            return;
-        }
-
-        try {
-            StockPriceDto refreshedPrice = hantuWebSocketHandler.getLatestPrice(order.getStockCode());
-            if (refreshedPrice == null) {
-                log.warn("락 획득 후 가격 정보 조회 실패. orderId={}", order.getId());
-                return;
-            }
-
-            int finalPrice = refreshedPrice.getCurrentPrice();
-            if (!shouldExecuteOrder(order, finalPrice)) {
-                log.debug("락 획득 후 체결 조건 불만족. orderId={}", order.getId());
-                return;
-            }
-            executeOrder(order, finalPrice);
-        } finally {
-            memberLock.unlock();
-        }
-    }
-
-    /**
-     * 핵심 주문 실행 로직 - DB 락에만 의존하여 단순화
-     */
     private void executeOrder(Orders order, int executionPrice) {
         if (order.getTradeType() == TradeType.SELL) {
             Optional<Portfolios> optionalPortfolio = portfoliosRepository

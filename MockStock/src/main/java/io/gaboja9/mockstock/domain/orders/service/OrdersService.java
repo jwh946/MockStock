@@ -45,17 +45,11 @@ public class OrdersService {
     private final HantuWebSocketHandler hantuWebSocketHandler;
     private final NotificationsService notificationsService;
 
-    /**
-     * 함수형 인터페이스 - 주문 처리 템플릿용
-     */
     @FunctionalInterface
     private interface OrderTask<T> {
         T execute();
     }
 
-    /**
-     * 주문 처리를 위한 공통 템플릿 메서드
-     */
     private <T> T executeOrderSafely(OrderTask<T> task) {
         if (!openKoreanMarket()) {
             throw new NotOpenKoreanMarketException();
@@ -316,16 +310,12 @@ public class OrdersService {
         });
     }
 
-    /**
-     * 알림 발송을 안전하게 처리 (트랜잭션 롤백 방지)
-     */
     private void sendTradeNotificationSafely(Long memberId, String stockCode, String stockName,
                                              TradeType tradeType, int quantity, int price) {
         try {
             notificationsService.sendTradeNotification(memberId, stockCode, stockName, tradeType, quantity, price);
         } catch (Exception e) {
             log.error("{} 알림 발송 실패 - 사용자: {}, 종목: {}", tradeType, memberId, stockName, e);
-            // 예외를 다시 던지지 않음 - 트랜잭션 롤백 방지
         }
     }
 

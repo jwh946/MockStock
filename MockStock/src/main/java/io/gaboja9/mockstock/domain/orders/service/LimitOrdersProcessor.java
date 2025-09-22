@@ -41,9 +41,6 @@ public class LimitOrdersProcessor {
         }
     }
 
-    /**
-     * 배치 주문 처리 - Virtual Thread의 특성을 최대한 활용
-     */
     private void processBatchOrders(List<Orders> pendingOrders) {
         log.debug("처리할 지정가 주문 수: {}", pendingOrders.size());
 
@@ -71,9 +68,6 @@ public class LimitOrdersProcessor {
         }
     }
 
-    /**
-     * 개별 주문을 비동기로 처리
-     */
     private CompletableFuture<Void> processOrderAsync(Orders order) {
         return CompletableFuture.runAsync(() ->
                 limitOrdersExecutor.processIndividualOrder(order), virtualThreadExecutor);
