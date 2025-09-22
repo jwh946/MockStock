@@ -5,6 +5,8 @@ import io.gaboja9.mockstock.domain.payments.dto.*;
 import io.gaboja9.mockstock.domain.payments.entity.PaymentStatus;
 import io.gaboja9.mockstock.domain.payments.service.KakaoPayService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
@@ -35,16 +37,18 @@ public class KakaoPayController implements KakaoPayControllerSpec {
     }
 
     @GetMapping("/approve")
-    public ResponseEntity<PaymentResponse> paymentApprove(
-            @RequestParam("pg_token") String pgToken, @RequestParam("member_id") Long memberId) {
+    public ResponseEntity<Void> paymentApprove(
+            @RequestParam("pg_token") String pgToken, @RequestParam("member_id") Long memberId, HttpServletResponse response) {
         try {
-            KakaoPayApproveResponse response = kakaoPayService.paymentApprove(pgToken, memberId);
+            KakaoPayApproveResponse kakaoPayResponse = kakaoPayService.paymentApprove(pgToken, memberId);
 
-            return ResponseEntity.ok(PaymentResponse.success("결제 승인 완료", response));
-
+//            return ResponseEntity.ok(PaymentResponse.success("결제 승인 완료", response));
+            response.sendRedirect("https://mock-stock.pages.dev/mypage?payment=success");
+            return null;
         } catch (Exception e) {
-            return ResponseEntity.badRequest()
-                    .body(PaymentResponse.fail("결제 승인 실패: " + e.getMessage()));
+//            return ResponseEntity.badRequest()
+//                    .body(PaymentResponse.fail("결제 승인 실패: " + e.getMessage()));
+            return null;
         }
     }
 

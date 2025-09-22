@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -71,11 +72,11 @@ public interface KakaoPayControllerSpec {
                 @ApiResponse(responseCode = "200", description = "결제 승인 성공"),
                 @ApiResponse(responseCode = "400", description = "결제 승인 실패")
             })
-    ResponseEntity<PaymentResponse> paymentApprove(
+    ResponseEntity<Void> paymentApprove(
             @Parameter(description = "카카오페이 결제 고유 토큰", required = true, example = "sample_pg_token")
                     @RequestParam("pg_token")
                     String pgToken,
-            @RequestParam("member_id") Long memberId);
+            @RequestParam("member_id") Long memberId, HttpServletResponse  response);
 
     @Operation(summary = "결제 취소", description = "진행 중인 결제를 취소합니다.")
     @ApiResponses(
