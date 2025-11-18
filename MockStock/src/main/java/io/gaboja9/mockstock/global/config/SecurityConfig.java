@@ -40,7 +40,7 @@ public class SecurityConfig {
                                                 "/api/stocks",
                                                 "/ws-stock",
                                                 "/ws-stock/**",
-                                                "/ranks",
+                                                "/ranks/**",
                                                 "/payments/**",
                                                 "/stocks/**",
                                                 "mockPrice/**")

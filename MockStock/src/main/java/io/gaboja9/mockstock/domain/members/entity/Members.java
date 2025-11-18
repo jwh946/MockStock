@@ -44,6 +44,9 @@ public class Members extends BaseEntity {
     @Setter
     private String password;
 
+    @Setter
+    private double yesterdayProfitRate = 0.0;
+
     @Builder
     public Members(
             String email,

@@ -1,6 +1,8 @@
 package io.gaboja9.mockstock.domain.ranks.controller;
 
 import io.gaboja9.mockstock.domain.auth.dto.MembersDetails;
+import io.gaboja9.mockstock.domain.members.repository.MembersRepository;
+import io.gaboja9.mockstock.domain.ranks.dto.RankSummaryDto;
 import io.gaboja9.mockstock.domain.ranks.dto.RankingRequest;
 import io.gaboja9.mockstock.domain.ranks.dto.RankingResponse;
 import io.gaboja9.mockstock.domain.ranks.entity.RanksType;
@@ -39,5 +41,11 @@ public class RanksController implements RanksControllerSpec {
         ranksService.updateAndCacheRanks();
 
         return ResponseEntity.ok("랭킹 갱신 성공");
+    }
+
+    @GetMapping("/summary")
+    public ResponseEntity<RankSummaryDto> summary() {
+        RankSummaryDto summaryDto = ranksService.getRankSummary();
+        return ResponseEntity.ok(summaryDto);
     }
 }
