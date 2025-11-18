@@ -8,10 +8,7 @@ import io.gaboja9.mockstock.domain.payments.entity.PaymentStatus;
 import io.gaboja9.mockstock.domain.payments.repository.PaymentHistoryRepository;
 import io.gaboja9.mockstock.domain.portfolios.entity.Portfolios;
 import io.gaboja9.mockstock.domain.portfolios.repository.PortfoliosRepository;
-import io.gaboja9.mockstock.domain.ranks.dto.PaginationInfo;
-import io.gaboja9.mockstock.domain.ranks.dto.RankingRequest;
-import io.gaboja9.mockstock.domain.ranks.dto.RankingResponse;
-import io.gaboja9.mockstock.domain.ranks.dto.RanksDto;
+import io.gaboja9.mockstock.domain.ranks.dto.*;
 import io.gaboja9.mockstock.domain.ranks.entity.RanksType;
 import io.gaboja9.mockstock.global.websocket.HantuWebSocketHandler;
 import io.gaboja9.mockstock.global.websocket.dto.StockPriceDto;
@@ -325,5 +322,23 @@ public class RanksService {
 
         log.debug("주식 {} 가짜 가격 사용: {}", stockCode, basePrice);
         return basePrice;
+    }
+
+    public RankSummaryDto getRankSummary() {
+        long totalMemberCount = membersRepository.count();
+        long plusMemberCount = membersRepository.countByYesterdayProfitRateGreaterThan(0.0);
+        double plusRateRaw = (plusMemberCount / (double) totalMemberCount) * 100;
+        double plusRate = Math.round(plusRateRaw * 10) / 10.0;
+        double minusRate = 100.0 - plusRate;
+
+        long bankruptcyMemberCount = membersRepository.countByBankruptcyCntGreaterThan(0);
+
+        RankSummaryDto dto = RankSummaryDto.builder()
+                .totalMember((int) totalMemberCount)
+                .plusRate("+" + plusRate + "%")
+                .minusRate("-" + minusRate + "%")
+                .bankruptcyMember((int) bankruptcyMemberCount)
+                .build();
+        return dto;
     }
 }

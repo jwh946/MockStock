@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface MembersRepository extends JpaRepository<Members, Long> {
@@ -17,4 +18,7 @@ public interface MembersRepository extends JpaRepository<Members, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT m FROM Members m WHERE m.id = :id")
     Optional<Members> findByIdWithLock(@Param("id") Long id);
+
+    int countByYesterdayProfitRateGreaterThan(double rate);
+    int countByBankruptcyCntGreaterThan(int bankruptcyCnt);
 }

@@ -92,4 +92,5 @@ public class MembersService {
 
         return MemoResponseDto.builder().memo(findMember.getMemo()).build();
     }
+
 }
