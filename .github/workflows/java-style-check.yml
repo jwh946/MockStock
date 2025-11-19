@@ -15,4 +15,5 @@ jobs:
         uses: axel-op/googlejavaformat-action@v4
         with:
           args: "--replace --aosp"
+          target: "src/main/java"
           commit-message: "chore: Java 스타일 수정"

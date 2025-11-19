@@ -21,7 +21,7 @@ public class RankSummaryDto {
     @Schema(description = "수익률 손실자 비율", example = "-24.8%")
     private String minusRate;
 
-    @Schema(description = "파산 유저", example = "5")
+    @Schema(description = "파산 유저", example = "10")
     private int bankruptcyMember;
 
 }
