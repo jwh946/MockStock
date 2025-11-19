@@ -23,4 +23,5 @@ public class RankSummaryDto {
 
     @Schema(description = "파산 유저", example = "5")
     private int bankruptcyMember;
+
 }
