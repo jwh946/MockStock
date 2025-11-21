@@ -13,7 +13,7 @@ COPY src src
 
 RUN ./gradlew build --no-daemon -x test
 
-FROM openjdk:21-slim
+FROM eclipse-temurin:21-jre
 
 WORKDIR /app
 
