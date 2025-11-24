@@ -1,4 +1,4 @@
-name: Grepp Sample Backend Service Release
+name: Backend Service Release
 
 on:
   push:
@@ -7,7 +7,8 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: prgrms-web-devcourse-final-project/web5_7_gaboja9_be
+  IMAGE_NAME: jwh946/MockStock_BE
+
 
 jobs:
 
