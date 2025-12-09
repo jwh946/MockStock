@@ -43,7 +43,7 @@ public class KakaoPayController implements KakaoPayControllerSpec {
             KakaoPayApproveResponse kakaoPayResponse = kakaoPayService.paymentApprove(pgToken, memberId);
 
 //            return ResponseEntity.ok(PaymentResponse.success("결제 승인 완료", response));
-            response.sendRedirect("https://mock-stock.pages.dev/mypage?payment=success");
+            response.sendRedirect("https://mockstock.pages.dev/mypage?payment=success");
             return null;
         } catch (Exception e) {
 //            return ResponseEntity.badRequest()

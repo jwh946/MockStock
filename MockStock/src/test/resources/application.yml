@@ -116,7 +116,7 @@ springdoc:
 custom:
   jwt:
     redirection:
-      base: https://mock-stock.pages.dev/
+      base: https://mockstock.pages.dev/
 
     validation:
       access: 600000

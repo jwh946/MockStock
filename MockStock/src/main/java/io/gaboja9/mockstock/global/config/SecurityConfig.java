@@ -67,7 +67,7 @@ public class SecurityConfig {
 
         //        configuration.setAllowedOrigins(
         //                List.of(
-        //                        "https://mock-stock.pages.dev",
+        //                        "https://mockstock.pages.dev",
         //                        "http://localhost:3000",
         //                        "https://mockstocks.duckdns.org",
         //                        "https://mockstocks.duckdns.org:3000",
