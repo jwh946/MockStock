@@ -17,8 +17,16 @@ import java.time.LocalDateTime;
 @Table(
         name = "orders",
         indexes = {
-            @Index(name = "idx_status_type_createdAt", columnList = "status, orderType, createdAt")
-        })
+                @Index(name = "idx_orders_status_type_created",
+                        columnList = "status, order_type, created_at"),
+
+                @Index(name = "idx_orders_members_id",
+                        columnList = "members_id"),
+
+                @Index(name = "idx_orders_member_status_created",
+                        columnList = "members_id, status, created_at")
+        }
+)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Orders extends BaseEntity {
 

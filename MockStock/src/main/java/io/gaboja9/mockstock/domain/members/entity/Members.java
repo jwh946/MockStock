@@ -14,6 +14,11 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Table(name = "members", indexes = {
+        @Index(name = "idx_members_email",
+                columnList = "email",
+                unique = true)
+})
 public class Members extends BaseEntity {
 
     @Id

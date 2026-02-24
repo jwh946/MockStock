@@ -11,6 +11,11 @@ import lombok.*;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "portfolios",
+        indexes = {
+                @Index(name = "idx_portfolio_member_stock",
+                columnList = "members_id, stock_code")
+})
 public class Portfolios extends BaseEntity {
 
     @Id
