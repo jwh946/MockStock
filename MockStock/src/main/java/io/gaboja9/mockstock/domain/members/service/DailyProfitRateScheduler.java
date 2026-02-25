@@ -16,7 +16,7 @@ public class DailyProfitRateScheduler {
     private final MembersRepository membersRepository;
     private final PortfoliosService portfoliosService;
 
-    @Scheduled(cron = "0 0 16 * * *")
+    @Scheduled(cron = "0 0 16 * * *", zone = "Asia/Seoul")
     public void updateYesterdayProfitRate() {
 
         List<Members> allMembers = membersRepository.findAll();
