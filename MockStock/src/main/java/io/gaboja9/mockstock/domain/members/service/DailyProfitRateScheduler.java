@@ -7,11 +7,13 @@ import io.gaboja9.mockstock.domain.portfolios.service.PortfoliosService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Transactional
 public class DailyProfitRateScheduler {
     private final MembersRepository membersRepository;
     private final PortfoliosService portfoliosService;
@@ -28,7 +30,5 @@ public class DailyProfitRateScheduler {
 
             member.setYesterdayProfitRate(profitRate);
         }
-
-        membersRepository.saveAll(allMembers);
     }
 }
