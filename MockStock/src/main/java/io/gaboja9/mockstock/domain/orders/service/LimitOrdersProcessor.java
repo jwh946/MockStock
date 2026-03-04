@@ -22,7 +22,8 @@ public class LimitOrdersProcessor {
     private final OrdersRepository ordersRepository;
     private final OrdersService ordersService;
     private final LimitOrdersExecutor limitOrdersExecutor;
-    private final Executor virtualThreadExecutor = Executors.newVirtualThreadPerTaskExecutor();
+    private final ExecutorService orderExecutor = Executors.newFixedThreadPool(8);
+
 
     @Scheduled(fixedDelay = 1000) // 1초마다 실행
     public void processLimitOrders() {
@@ -70,6 +71,6 @@ public class LimitOrdersProcessor {
 
     private CompletableFuture<Void> processOrderAsync(Orders order) {
         return CompletableFuture.runAsync(() ->
-                limitOrdersExecutor.processIndividualOrder(order), virtualThreadExecutor);
+                limitOrdersExecutor.processIndividualOrder(order), orderExecutor);
     }
 }
